@@ -1,13 +1,14 @@
 package rest.api;
 
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+
 import org.apache.http.HttpStatus;
 import org.junit.Assert;
 import org.junit.Test;
-import static com.jayway.restassured.RestAssured.given;
-import com.jayway.restassured.http.ContentType;
-import com.jayway.restassured.path.json.JsonPath;
-import com.jayway.restassured.response.Response;
 
+import static io.restassured.RestAssured.*;
 public class RestApiCalls {
 
 	@Test
@@ -15,8 +16,12 @@ public class RestApiCalls {
 		System.out.println("=================GET CALL=================");
 
 		//Make Get Call
-		Response response = given().when().get("http://jsonplaceholder.typicode.com/posts/1").then().log().all().extract()
-				.response();
+		Response response = given().
+							when().
+								get("http://jsonplaceholder.typicode.com/posts/1").
+							then().
+								log().all().
+								extract().response();
 
 		//Verify Status Code
 		Assert.assertEquals("Status Code is wrong!", HttpStatus.SC_OK,
@@ -35,8 +40,14 @@ public class RestApiCalls {
 
 		//Make Post Call
 		String payload ="{\n  \"userId\": 1,\n  \"id\": 1,\n  \"title\": \"delectus aut autem\",\n  \"completed\": false\n}";
-		Response response = given().accept(ContentType.JSON).body(payload).when().post("http://jsonplaceholder.typicode.com/posts").then().log().all().extract()
-				.response();
+		Response response = given().
+								accept(ContentType.JSON).
+								body(payload).
+							when().
+								post("http://jsonplaceholder.typicode.com/posts").
+							then().
+								log().all().
+								extract().response();
 
 		//Verify Status Code
 		Assert.assertEquals("Status Code is wrong!", HttpStatus.SC_CREATED,
@@ -49,9 +60,14 @@ public class RestApiCalls {
 
 		//Make Put Call
 		String payload ="{\n  \"userId\": 1,\n  \"id\": 1,\n  \"title\": \"delectus aut autem\",\n  \"completed\": false\n}";
-		Response response = given().accept(ContentType.JSON).body(payload)
-				.when().put("http://jsonplaceholder.typicode.com/posts/1")
-				.then().log().all().extract().response();
+		Response response = given().
+								accept(ContentType.JSON).
+								body(payload).
+							when().
+								put("http://jsonplaceholder.typicode.com/posts/1").
+							then().
+								log().all().
+								extract().response();
 
 		//Verify Status Code
 		Assert.assertEquals("Status Code is wrong!", HttpStatus.SC_OK,
@@ -63,9 +79,13 @@ public class RestApiCalls {
 		System.out.println("=================DELETE CALL=================");
 
 		//Make Delete Call
-		Response response = given().accept(ContentType.JSON)
-				.when().delete("http://jsonplaceholder.typicode.com/posts/1")
-				.then().log().all().extract().response();
+		Response response = given().
+								accept(ContentType.JSON).
+							when().
+								delete("http://jsonplaceholder.typicode.com/posts/1").
+							then().
+								log().all().
+								extract().response();
 
 		//Verify Status Code
 		Assert.assertEquals("Status Code is wrong!", HttpStatus.SC_OK,
